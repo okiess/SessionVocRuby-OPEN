@@ -1,0 +1,130 @@
+<SESSION id="sessionVOC">
+
+<!--////////////////////////////////////////////////////////////////////////////////////-->
+<!-- LOGIN SECTION                                                                      -->
+<!--////////////////////////////////////////////////////////////////////////////////////-->
+
+<login-data>
+
+	<authentications>
+		<authenticate>
+			<database id="1">
+				<type>mysql</type> <!--the type of database we are using to store the user data -->
+				<host>localhost</host> <!--the machine name where server resides                    -->
+				<port>3306</port> <!--port number -->
+				<db>sessionvoc</db> <!-- the name of the database to use -->
+				<username>root</username> <!-- the name of the user used to log onto the database - if left blank can be set via the server at startup -->
+				<password></password> <!-- the password used to log onto the database - if left blank can be set via the server at startup -->
+			</database>
+
+			<database-communication>
+				<hash>sha1</hash>
+				<select>select passwords.password from passwords left join users on users.id = passwords.id where users.username = ?</select>
+			</database-communication>
+
+		</authenticate>
+	</authentications>
+
+	<client-server>
+		<communication>
+			challenge-response
+		</communication>
+		<attributes>
+			<attribute> <!-- this refers to a 64bit integer used to salt hashed password client requires this -->
+				<name>salt</name>
+				<type>string</type>
+			</attribute>
+
+			<attribute> <!-- this refers to the algorthim used to hash password including salt if any client requires this -->
+				<name>hash</name>
+				<type>unsigned integer</type>
+			</attribute>
+		</attributes>
+	</client-server>
+
+</login-data>
+
+<!--////////////////////////////////////////////////////////////////////////////////////-->
+<!-- USER DATA SECTION                                                                  -->
+<!--////////////////////////////////////////////////////////////////////////////////////-->
+<user-data>
+	<database id="1"/>
+	<attributes>
+		<attribute>
+			<name>name</name>
+			<type>string</type>
+		</attribute>
+
+		<attribute>
+			<name>surname</name>
+			<type>string</type>
+		</attribute>
+
+		<attribute>
+			<name>mobile</name>
+			<type>string</type>
+			<read-only/>
+		</attribute>
+
+		<load>
+			select name, surname, mobile from user_data left join users on users.id = user_data.id where users.username = ?
+		</load>
+
+		<save>
+			update user_data left join users on user_data.id = users.id set user_data.name = ?, user_data.surname = ?, user_data.mobile = ? where users.username = ?
+		</save>
+	</attributes>
+
+	<attributes>
+
+		<attribute>
+			<name>font_size</name>
+			<type>integer</type>
+		</attribute>
+
+		<attribute>
+			<name>sort_order</name>
+			<type>string</type>
+		</attribute>
+
+		<load>
+			select font_size, sort_order from user_preferences left join users on users.id = user_preferences.id where users.username = ?
+		</load>
+
+		<save>
+			update user_preferences left join users on user_preferences.id = users.id set user_preferences.font_size = ?, user_preferences.sort_order = ? where users.username = ?
+		</save>
+	</attributes>
+
+	<update-method>write-through</update-method>
+
+</user-data>
+
+<!--////////////////////////////////////////////////////////////////////////////////////-->
+<!-- TRANSIENT DATA SECTION                                                             -->
+<!--////////////////////////////////////////////////////////////////////////////////////-->
+<transient-data>
+	<attributes>
+		<attribute> 
+			<name>_csrf_token</name> <!-- Required for use with Ruby on Rails! -->
+			<type>string</type>
+		</attribute>
+
+		<attribute>
+			<name>message</name>
+			<type>string</type>
+		</attribute>
+
+		<attribute>
+			<name>ipAddress</name>
+			<type>string</type>
+		</attribute>
+
+		<attribute>
+			<name>superAttribute</name>
+			<type>variant</type>
+		</attribute>
+	</attributes>
+</transient-data>
+
+</SESSION>
