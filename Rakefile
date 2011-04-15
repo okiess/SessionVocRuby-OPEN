@@ -11,7 +11,7 @@ require 'rake'
 
 require 'jeweler'
 Jeweler::Tasks.new do |gem|
-  gem.name = "sessionvoc-store"
+  gem.name = "sessionvoc-open"
   gem.homepage = "http://www.worldofvoc.com/products/sessionvoc/summary/"
   gem.license = "Apache License Version 2.0, January 2004"
   gem.summary = %Q{The SessionVOC is a noSQL database optimized for the management of user sessions.}

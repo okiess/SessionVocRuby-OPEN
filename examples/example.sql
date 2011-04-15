@@ -26,7 +26,7 @@ CREATE TABLE `user_preferences` (
 ) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8;
 
 INSERT INTO users (username) VALUES("testuser");
-INSERT INTO passwords (id, password) VALUES(1, "2cee3c63210829f3e9d3768dbe4c4d12ad784b31");
+INSERT INTO passwords (id, password) VALUES(1, "4d86ae67573281c0ba62d455e724926c");
 INSERT INTO user_data (id, name, surname, mobile) VALUES(1, "Tes", "Testmann", "0111-11111111");
 INSERT INTO user_data (id, font_size, sort_order) VALUES(1, 14, "DESC");
 INSERT INTO user_preferences (id, font_size, sort_order) VALUES(1, 14, "DESC");

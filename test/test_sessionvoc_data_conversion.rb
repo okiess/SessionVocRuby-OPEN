@@ -18,14 +18,14 @@ class TestSessionvocDataConversion < Test::Unit::TestCase
     sid = client.new_session
     assert_not_nil sid
     mock_session_hash = {'transData' => {}, 'sid' => sid}
-    assert_raise Sessionvoc::DataConversionException do
+    assert_raise Sessionvoc::Open::DataConversionException do
       client.enforce_value_type('someData', 'message', 'test', mock_session_hash)
     end
   end
   
   should "fail to perform data conversion due to a missing sid" do
     mock_session_hash = {'transData' => {}, 'sid' => nil}
-    assert_raise Sessionvoc::InvalidSidException do
+    assert_raise Sessionvoc::Open::InvalidSidException do
       client.enforce_value_type('transData', 'message', 'test', mock_session_hash)
     end
   end
@@ -34,7 +34,7 @@ class TestSessionvocDataConversion < Test::Unit::TestCase
     sid = client.new_session
     assert_not_nil sid
     mock_session_hash = {'transData' => {}, 'sid' => sid}
-    assert_raise Sessionvoc::DataConversionException do
+    assert_raise Sessionvoc::Open::DataConversionException do
       client.enforce_value_type('transData', 'foo', 'test', mock_session_hash)
     end
   end

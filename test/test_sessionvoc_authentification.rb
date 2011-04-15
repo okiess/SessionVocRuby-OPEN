@@ -6,7 +6,7 @@ class TestSessionvocAuthentification < Test::Unit::TestCase
   should "fail to perform a simple authentification due to a non-existing sid" do
     sid = client.new_session
     assert non_sid != sid
-    assert_raise Sessionvoc::NotSupportedException do
+    assert_raise Sessionvoc::Open::NotSupportedException do
       client.simple(non_sid, 'testuser', 'tester')
     end
   end
@@ -19,7 +19,7 @@ class TestSessionvocAuthentification < Test::Unit::TestCase
   should "fail to perform a challenge response authentification due to a non-existing sid - part 1" do
     sid = client.new_session
     assert non_sid != sid
-    assert_raise Sessionvoc::InvalidSidException do
+    assert_raise Sessionvoc::Open::InvalidSidException do
       login_data = client.challenge(non_sid, 'testuser', 'tester')
     end
   end
@@ -36,16 +36,16 @@ class TestSessionvocAuthentification < Test::Unit::TestCase
   end
   
   should "perform the correct encryption and hashing" do
-    assert_equal client.send(:encrypt_password, 'tester', 'abcdef', Sessionvoc::Base::HASH_TYPES[:HASH_NONE]), 'tester'
-    assert_equal client.send(:encrypt_password, 'tester', 'abcdef', Sessionvoc::Base::HASH_TYPES[:HASH_SHA1]), 'db1e80e88bdeb3182c368f2b9d798431'
-    assert_equal client.send(:encrypt_password, 'tester', 'abcdef', Sessionvoc::Base::HASH_TYPES[:HASH_MD5]), '8310a7f94396ec64c9221227ba5c667e'
+    assert_equal client.send(:encrypt_password, 'tester', 'abcdef', Sessionvoc::Open::Base::HASH_TYPES[:HASH_NONE]), 'tester'
+    assert_equal client.send(:encrypt_password, 'tester', 'abcdef', Sessionvoc::Open::Base::HASH_TYPES[:HASH_SHA1]), 'db1e80e88bdeb3182c368f2b9d798431'
+    assert_equal client.send(:encrypt_password, 'tester', 'abcdef', Sessionvoc::Open::Base::HASH_TYPES[:HASH_MD5]), '8310a7f94396ec64c9221227ba5c667e'
     
-    assert_raise Sessionvoc::NotSupportedException do
-      client.send(:encrypt_password, 'tester', 'abcdef', Sessionvoc::Base::HASH_TYPES[:HASH_SHA224])
+    assert_raise Sessionvoc::Open::NotSupportedException do
+      client.send(:encrypt_password, 'tester', 'abcdef', Sessionvoc::Open::Base::HASH_TYPES[:HASH_SHA224])
     end
     
-    assert_raise Sessionvoc::NotSupportedException do
-      client.send(:encrypt_password, 'tester', 'abcdef', Sessionvoc::Base::HASH_TYPES[:HASH_SHA256])
+    assert_raise Sessionvoc::Open::NotSupportedException do
+      client.send(:encrypt_password, 'tester', 'abcdef', Sessionvoc::Open::Base::HASH_TYPES[:HASH_SHA256])
     end
   end
 

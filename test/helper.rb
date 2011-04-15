@@ -15,7 +15,7 @@ require 'digest'
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
-require 'sessionvoc-store'
+require 'sessionvoc-open'
 
 class Test::Unit::TestCase
   def non_sid
@@ -30,9 +30,9 @@ class Test::Unit::TestCase
     port = ENV['SESSIONVOC_PORT']
     host = ENV['SESSIONVOC_HOST']
     if host and port
-      @client ||= Sessionvoc::Client.new('host' => host, 'port' => port, 'log_level' => Logger::DEBUG)
+      @client ||= Sessionvoc::Open::Client.new('host' => host, 'port' => port, 'log_level' => Logger::DEBUG)
     else
-      @client ||= Sessionvoc::Client.new('log_level' => Logger::DEBUG)
+      @client ||= Sessionvoc::Open::Client.new('log_level' => Logger::DEBUG)
     end
   end
 end

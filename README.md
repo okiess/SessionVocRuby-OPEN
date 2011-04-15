@@ -16,7 +16,7 @@ Tested on Ruby 1.8.7 (Rubygems 1.5.2) and Rails 3.0.5 and higher.
 	
 	[sudo] gem install httparty
 	[sudo] gem install json
-    [sudo] gem install sessionvoc-store
+    [sudo] gem install sessionvoc-open
 
 Install Rails if you don't have it already:
 
@@ -50,7 +50,7 @@ Please make sure that your SessionVOC installation configuration contains the `_
 
 Basic steps to perform within your Rails webapp:
 
- * Add the "sessionvoc-store" gem to your Gemfile
+ * Add the "sessionvoc-open" gem to your Gemfile
  * Create a "sessionvoc.yml" file in your config directory
  * Create a "session_store.rb" file in the "config/initializers" directory and add the following line (please fill in your app name):
 
@@ -67,7 +67,7 @@ Outside of Rails:
 
 You can setup the SessionVOC client by passing options into the constructor or by using a configuration file in YAML.
 
-    client = SessionVOC::Client.new('host' => 'localhost', 'port' => 8208, 'auth' => 'challenge')
+    client = Sessionvoc::Open::Client.new('host' => 'localhost', 'port' => 8208, 'auth' => 'challenge')
 
 Possible configuration options:
 
@@ -85,10 +85,10 @@ If this configuration file isn't found in the current directory, the client will
 Usage
 -----
 
-Add the "sessionvoc-store" gem to your bundler Gemfile in Rails 3.x or require the sessionvoc-store gem manually.
+Add the "sessionvoc-open" gem to your bundler Gemfile in Rails 3.x or require the "sessionvoc-open" gem manually.
 
-    gem 'sessionvoc-store'
-    require 'sessionvoc-store'
+    gem 'sessionvoc-open'
+    require 'sessionvoc-open'
 
 
 Examples
@@ -128,9 +128,9 @@ Outside of Rails:
 
 Creating the client:
 
-    gem 'sessionvoc-store'
-    require 'sessionvoc-store'
-    client = Sessionvoc::Client.new('host' => 'localhost', 'port' => 8208, 'log_level' => LOGGER::DEBUG, 'auth' => 'challenge')
+    gem 'sessionvoc-open'
+    require 'sessionvoc-open'
+    client = Sessionvoc::Open::Client.new('host' => 'localhost', 'port' => 8208, 'log_level' => LOGGER::DEBUG, 'auth' => 'challenge')
 
 Working with sessions:
 

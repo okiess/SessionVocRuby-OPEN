@@ -25,7 +25,7 @@ class TestSessionvocSession < Test::Unit::TestCase
   should "fail to get an existing due to a non-existing sid" do
     sid = client.new_session
     assert non_sid != sid
-    assert_raise Sessionvoc::InvalidSidException do
+    assert_raise Sessionvoc::Open::InvalidSidException do
       session_data = client.get_session(non_sid)
     end
   end
@@ -41,7 +41,7 @@ class TestSessionvocSession < Test::Unit::TestCase
   should "fail to delete a session due to a non-existing sid" do
     sid = client.new_session
     assert non_sid != sid
-    assert_raise Sessionvoc::InvalidSidException do
+    assert_raise Sessionvoc::Open::InvalidSidException do
       client.delete_session(non_sid)
     end
   end
@@ -66,7 +66,7 @@ class TestSessionvocSession < Test::Unit::TestCase
   should "fail to update a session due to a non-existing sid" do
     sid = client.new_session
     assert non_sid != sid
-    assert_raise Sessionvoc::InvalidSidException do
+    assert_raise Sessionvoc::Open::InvalidSidException do
       client.update(non_sid, {'transData' => {'message' => 'Hello from RUnit!'}})
     end
   end

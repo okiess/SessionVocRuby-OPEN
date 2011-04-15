@@ -15,7 +15,7 @@ class TestSessionvocFormData < Test::Unit::TestCase
   should "fail to create form data due to a non-existent sid" do
     sid = client.new_session
     assert non_sid != sid
-    assert_raise Sessionvoc::InternalServerErrorException do
+    assert_raise Sessionvoc::Open::InternalServerErrorException do
       fid = client.create_form_data(non_sid)
     end
   end
@@ -27,7 +27,7 @@ class TestSessionvocFormData < Test::Unit::TestCase
   
   should "fail to delete form data due to a non-existent fid" do
     sid, fid = create_form
-    assert_raise Sessionvoc::InvalidFidException do
+    assert_raise Sessionvoc::Open::InvalidFidException do
       client.delete_form_data(sid, non_fid)
     end
   end
@@ -53,7 +53,7 @@ class TestSessionvocFormData < Test::Unit::TestCase
 
   should "fail to get form data due to a non-existent fid" do
     sid, fid = create_form
-    assert_raise Sessionvoc::InvalidFidException do
+    assert_raise Sessionvoc::Open::InvalidFidException do
       client.get_form_data(sid, non_fid)
     end
   end
@@ -102,7 +102,7 @@ class TestSessionvocFormData < Test::Unit::TestCase
   should "fail to update form data due to a non-existent sid" do
     form_data = {'foo' => 'bar'}
     fid = non_fid
-    assert_raise Sessionvoc::InvalidSidException do
+    assert_raise Sessionvoc::Open::InvalidSidException do
       client.update_form_data(non_sid, fid, form_data)
     end
   end
